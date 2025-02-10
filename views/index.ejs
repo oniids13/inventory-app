@@ -1,0 +1,52 @@
+<%- include('./partials/header') %>
+
+<main>
+    
+        <div class="container">
+            <h2>View Items</h2>
+            <form action="/">
+                <select class="form-select" name="category" id="category" onchange="this.form.submit()">
+                    <option value="All" <%= selectedCategory === 'All' ? 'selected' : '' %>>All items</option>
+                    <% categories.map((category) => { %>
+                    <option value="<%= category.title %>" <%= selectedCategory === category.title ? 'selected' : '' %>><%= category.title %></option>
+                    <% }) %>
+                </select>
+            </form>
+            <div class="mt-5">
+                <h3><%= selectedCategory === 'All' ? 'All Items' : selectedCategory %></h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item name</th>
+                            <th scope="col">description</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% values.map((value) => { %>
+                            <tr>
+                                <th><%= value.item_name %></th>
+                                <th><%= value.description %></th>
+                                <th><%= value.qty %></th>
+                                <th><%= value.price %></th>
+                                <th><% const category = categoryName.find(category => category.id === value.category_id);%>
+                                   <% if (category) {  %>
+                                        <%= category.title %>
+                                    <% } else { %>
+                                        
+                                <% } %>
+                            </th>
+                            </tr>
+                       <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+</main>
+
+
+
+<%- include('./partials/footer') %>
