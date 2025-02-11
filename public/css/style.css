@@ -28,3 +28,7 @@ footer {
     text-align: center;
     color: red;
 }
+a {
+    text-decoration: none;
+    display: inline-block;
+}

@@ -24,8 +24,8 @@ async function getAllItems() {
 
 async function getItem(id) {
     try {
-        const { item } = await pool.query('SELECT * FROM items WHERE id=($1)', [id])
-        return item
+        const  item  = await pool.query('SELECT * FROM items WHERE id=($1)', [id])
+        return item.rows
     } catch(err) {
         console.log(err)
     }
@@ -47,7 +47,7 @@ async function getItemfromCategory(title) {
 
 async function addItems(item_name, description, qty, price, category_id) {
     try {
-        await pool.query('INSERT INTO items (item_name, description, qty, price, category_id) VALUES ($1), ($2), ($3), ($4), ($5)', [item_name, description, qty, price, category_id])
+        await pool.query('INSERT INTO items (item_name, description, qty, price, category_id) VALUES ($1, $2, $3, $4, $5)', [item_name, description, qty, price, category_id])
 
         console.log(`Item ${item_name} added successfully`)
     } catch(err) {
@@ -86,20 +86,7 @@ async function updateItem(id, item_name, description, qty, price, category_id) {
     
 }
 
-async function updateCategory(id, title) {
-    try {
-        const query = `
-            UPDATE categories
-            SET title = $1
-            WHERE id = $2
-        `;
 
-        await pool.query(query,[title, id])
-        console.log(`Category ${title} updated successfully`)
-    }  catch(err) {
-        console.error(err)
-    }   
-}
 
 async function deleteItem(id) {
     try {
@@ -114,7 +101,7 @@ async function deleteItem(id) {
 async function deleteCategory(id) {
     try {
         await pool.query('DELETE FROM categories WHERE id=($1)', [id])
-        console.log(`Categorywith id no. ${id} has deleted successully`)
+        console.log(`Category with id no. ${id} has deleted successully`)
     } catch  (err) {
         console.error(err)
     }
@@ -151,7 +138,6 @@ module.exports = {
     getItemfromCategory,
     addCategory,
     addItems,
-    updateCategory,
     updateItem,
     deleteCategory,
     deleteItem,
