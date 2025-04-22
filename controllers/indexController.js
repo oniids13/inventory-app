@@ -29,7 +29,7 @@ const singlePageController = asyncHandler(async (req, res) => {
     const result = await db.getItem(id)
     const categoryName = await db.categoryName()
  
-    res.render('singlePageView', { item: result, categoryName })
+    res.render('singlePageView', { item: result, categoryName: categoryName || [] })
 })
 
 
@@ -39,7 +39,7 @@ const editItemController = asyncHandler(async (req, res) => {
     const result = await db.getItem(id)
     const categoryName = await db.categoryName()
 
-    res.render('editItemPage', { item: result, categoryName })
+    res.render('editItemPage', { item: result, categoryName: categoryName || [] })
 })
 
 
@@ -67,7 +67,7 @@ const addItemController = asyncHandler(async (req, res) => {
 
 const addCategoryController = asyncHandler( async (req, res) => {
     const categoryName = await db.categoryName()
-    res.render('addCategoryForm', {categoryName})
+    res.render('addCategoryForm', {categoryName: categoryName || []})
 })
 
 
