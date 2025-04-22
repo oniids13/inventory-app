@@ -20,7 +20,7 @@ const indexController = asyncHandler(async (req, res) => {
         values= await db.getAllItems()
     }
 
-    res.render('index.ejs' , { categories, selectedCategory, searchQuery, values, categoryName })
+    res.render('index.ejs' , { categories || [], selectedCategory, searchQuery, values, categoryName })
 })
 
 const singlePageController = asyncHandler(async (req, res) => {
