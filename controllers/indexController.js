@@ -62,7 +62,7 @@ const deleteItemController = asyncHandler(async (req, res) => {
 
 const addItemController = asyncHandler(async (req, res) => {
     const categoryName = await db.categoryName()
-    res.render('addItemForm', {categoryName})
+    res.render('addItemForm', {categoryName: categoryName || []})
 })
 
 const addCategoryController = asyncHandler( async (req, res) => {
